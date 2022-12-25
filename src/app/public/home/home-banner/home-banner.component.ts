@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'al-home-banner',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeBannerComponent implements OnInit {
 
-  constructor() { }
+  parent: string ="app";
+  dashboardPath: string = `${this.parent}/dashboard`;
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  navigate(page: string): void{
+    this.router.navigate([page]);
   }
 
 }
