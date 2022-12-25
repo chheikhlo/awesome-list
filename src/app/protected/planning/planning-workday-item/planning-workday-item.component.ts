@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'al-planning-workday-item',
@@ -22,6 +23,12 @@ export class PlanningWorkdayItemComponent implements OnInit {
  @Input() dueDate: string = "";
  @Input() doneTasks: number | string = 0 ;
  @Input() remainingTasks: number | string = 0;
+
+ @Output() workdayRemoved = new EventEmitter<string>();
+
+ removeWorkday(dueDate: string) {
+  this.workdayRemoved.emit(dueDate);
+ }
   
  ngOnChanges(changes: SimpleChanges) {
   for (const propName in changes) {

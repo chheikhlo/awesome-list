@@ -11,6 +11,7 @@
      [dueDate]="workday.dueDate"    
      [doneTasks]="workday.doneTasks" 
      [remainingTasks]="workday.remainingTasks"
+     (workdayRemoved)="onWorkdayRemoved($event)"
      class="col-md-4">
     </al-planning-workday-item>
 </div>

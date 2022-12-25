@@ -9,7 +9,8 @@ import { delay } from 'rxjs/operators';
   ]
 })
 export class PlanningWorkdayListComponent implements OnInit {
-  workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
+  
+  /*workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
   
   constructor() { }
    
@@ -20,6 +21,26 @@ export class PlanningWorkdayListComponent implements OnInit {
      { dueDate: 'Mardi', doneTasks: 0, remainingTasks: 2 },
      { dueDate: 'Mercredi', doneTasks: 0, remainingTasks: 1 }
     ]).pipe(delay(1000));
-   }
+   }*/
+   workday: { dueDate: string, doneTasks: number, remainingTasks: number }[] = [];
+  workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
+   
+ ngOnInit() {
+  this.workday = [
+   { dueDate: 'Lundi', doneTasks: 1, remainingTasks: 0 },
+   { dueDate: 'Mardi', doneTasks: 0, remainingTasks: 2 },
+   { dueDate: 'Mercredi', doneTasks: 0, remainingTasks: 1 }
+  ];
+     
+  this.workday$ = of(this.workday).pipe(delay(1000));
+ }
+  
+ // Ajoutez notre gestionnaire d’événement :
+ onWorkdayRemoved(dueDate: string) {
+  this.workday = this.workday.filter(workday => 
+   !dueDate.includes(workday.dueDate)
+  );
+  this.workday$ = of(this.workday);
+ }
    
  }

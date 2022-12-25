@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxBootstrapModule } from './modules/ngx-bootstrap.module';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    SidenavComponent
+  ],
   imports: [
     CommonModule,
     NgxBootstrapModule
@@ -13,7 +16,8 @@ import { NgxBootstrapModule } from './modules/ngx-bootstrap.module';
   exports: [
     CommonModule,
     //réexporter notre module NgxBootstrapModule pour le reste de notre application
-    NgxBootstrapModule
+    NgxBootstrapModule,
+    SidenavComponent
   ]
 })
 export class SharedModule { }
