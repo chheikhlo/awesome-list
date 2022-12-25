@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'al-planning-workday-item',
@@ -8,16 +8,52 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class PlanningWorkdayItemComponent implements OnInit {
 
+  constructor() { }
+  
+  ngOnInit(): void {}
+
+  /*
   @Input() workday: { dueDate: string, doneTasks: number, remainingTasks: number } = {
     dueDate: '',
     doneTasks: 0,
     remainingTasks: 0
-  };
+  };*/
 
-
-  constructor() { }
-
-  ngOnInit(): void {
+ @Input() dueDate: string = "";
+ @Input() doneTasks: number | string = 0 ;
+ @Input() remainingTasks: number | string = 0;
+  
+ ngOnChanges(changes: SimpleChanges) {
+  for (const propName in changes) {
+   this.update(propName, changes[propName].currentValue);
   }
-
+ }
+  
+ update(propName: string, propValue: string|number) {
+  
+  switch (propName) {
+   case 'dueDate': {
+    if ('Lundi' === propValue) { this.dueDate += ' (Aujourd\'hui)'; }
+    break;
+   }
+   case 'doneTasks': {
+    if (0 === propValue) { this.doneTasks = 'Aucune tâche terminé.'; }
+    break;
+   }
+   case 'remainingTasks': {
+    if (0 === propValue) { 
+     this.remainingTasks = 'Journée de travail terminée !';
+    } 
+    break;
+   }
+   default: {
+    break;
+   }
+  }
+ }
+  
 }
+
+
+  
+

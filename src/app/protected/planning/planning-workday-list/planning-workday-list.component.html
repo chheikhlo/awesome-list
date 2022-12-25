@@ -1,7 +1,16 @@
-<div class="row">
+<!--<div class="row">
     <al-planning-workday-item
       *ngFor="let workday of workday$ | async"
       [workday]="workday"
       class="col-md-4">
+    </al-planning-workday-item>
+</div>-->
+<div class="row">
+    <al-planning-workday-item
+     *ngFor="let workday of workday$ | async"
+     [dueDate]="workday.dueDate"    
+     [doneTasks]="workday.doneTasks" 
+     [remainingTasks]="workday.remainingTasks"
+     class="col-md-4">
     </al-planning-workday-item>
 </div>
