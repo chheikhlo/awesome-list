@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { PublicRoutingModule } from './public-routing.module';
 import { HomeModule } from './home/home.module';
-import { LoginRoutingModule } from './login/login-routing.module';
-import { RegisterRoutingModule } from './register/register-routing.module';
+import { RegisterModule } from './register/register.module';
+import { LoginModule } from './login/login.module';
 
 
 @NgModule({
@@ -13,8 +13,8 @@ import { RegisterRoutingModule } from './register/register-routing.module';
     CommonModule,
     PublicRoutingModule,
     HomeModule,
-    LoginRoutingModule,
-    RegisterRoutingModule
+    LoginModule,
+    RegisterModule
   ]
 })
 export class PublicModule { }

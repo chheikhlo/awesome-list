@@ -1,0 +1,11 @@
+<div [formGroup]="workdayForm">
+    <div formArrayName="tasks">
+     <al-workday-form-task-item
+      *ngFor="let task of taskControlList"
+      [task]="task">
+     </al-workday-form-task-item>
+    </div>
+    <div class="text-center mt-5">
+        <al-workday-form-task-add (addedTask)="onAddedTask()"></al-workday-form-task-add>
+    </div>
+</div>

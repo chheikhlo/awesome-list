@@ -17,7 +17,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     CommonModule,
     BrowserAnimationsModule,
     PublicModule,
-    ProtectedModule
+    ProtectedModule,
   ],
   exports: [
     NavbarComponent,
