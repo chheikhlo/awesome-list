@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'al-workday-form-task',
@@ -15,6 +15,8 @@ export class WorkdayFormTaskComponent {
   @Input()
   task!: FormArray;
 
+ 
+
   taskControlList!: FormGroup[];
 
   constructor(private fb: FormBuilder){
@@ -26,7 +28,22 @@ export class WorkdayFormTaskComponent {
 
   onAddedTask(){
     this.task.push(this.fb.group({
-      'title': ''
+      'title': ['', [
+        Validators.required,
+        Validators.minLength(1),
+        Validators.maxLength(150)
+       ]],
+       'todo': [1, [
+        Validators.required,
+        Validators.min(1),
+        Validators.max(5)
+       ]],
+       'done': 0
     }))
   }
+
+  onRemovedTask(index: number) {
+    this.task.removeAt(index);
+  }
+  
 }

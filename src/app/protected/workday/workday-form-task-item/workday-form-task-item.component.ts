@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,17 @@ import { FormGroup } from '@angular/forms';
 })
 export class WorkdayFormTaskItemComponent {
 
-  @Input() task!: FormGroup;
+ @Input() task!: FormGroup;
 
+ @Input() index!: number;
+ @Input() isFirst!: boolean;
+ @Input() isLast!: boolean;
+ 
+ @Output() removedTask = new EventEmitter<number>();
+
+
+
+ removeTask(index: number) {
+  this.removedTask.emit(index);
+}
 }

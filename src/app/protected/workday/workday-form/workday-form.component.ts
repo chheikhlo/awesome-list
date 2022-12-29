@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
 
 @Component({
   selector: 'al-workday-form',
@@ -15,13 +15,17 @@ export class WorkdayFormComponent {
   
   ngOnInit() {
    this.workdayForm = this.fb.group({
-    'dueDate': '',
-    'tasks': this.fb.array([{
-      /*Cette tache est codé en dure pour voir le résultat*/
-      'title': ''
-    }]),
-    'notes': '',
-   });
+    dueDate: ['', [
+      Validators.required
+     ]],
+     tasks: this.fb.array([], [
+      Validators.required,
+      Validators.maxLength(6)
+     ]),
+     notes: ['', [
+      Validators.maxLength(1000)
+     ]]
+    });
   }
   
   get dueDate() { return this.workdayForm.get('dueDate') as FormControl; }
