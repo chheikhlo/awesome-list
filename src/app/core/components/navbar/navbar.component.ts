@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LayoutService } from 'src/app/core/services/layout.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,7 @@ export class NavbarComponent implements OnInit {
   loginPath: string = 'login';
   registerPath: string = 'register';
    
-  constructor(private router: Router) { }
+  constructor(private router: Router, private layoutservice: LayoutService) { }
    
   ngOnInit() { }
    
@@ -21,5 +22,9 @@ export class NavbarComponent implements OnInit {
    
   public navigate(page: string): void {
    this.router.navigate([page]);
+  }
+
+  toggleSidenav() {
+    this.layoutservice.toggleSidenav();
   }
  }

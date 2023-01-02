@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { LayoutService } from '../core/services/layout.service';
 
 @Component({
   selector: 'al-protected',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProtectedComponent implements OnInit {
 
-  constructor() { }
+  isSidenavCollapsed!: boolean;
+  private subscription!: Subscription;
 
-  ngOnInit(): void {
-  }
+  constructor(private layoutService: LayoutService) { }
 
+  ngOnInit() {
+    this.subscription = 
+     this.layoutService.isSidenavCollapsed$.subscribe(
+      isSidenavCollapsed => this.isSidenavCollapsed = isSidenavCollapsed
+     );
+   }
+   
+   ngOnDestroy() {
+    this.subscription.unsubscribe();
+   }
 }
