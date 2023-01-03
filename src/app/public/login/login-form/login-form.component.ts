@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'al-login-form',
@@ -13,7 +14,8 @@ export class LoginFormComponent {
  
   constructor(
    private fb: FormBuilder,
-   private router: Router) { }
+   private router: Router,
+   private authService: AuthService) { }
   
   ngOnInit() {
    this.loginForm = this.fb.group({
@@ -33,9 +35,12 @@ export class LoginFormComponent {
   get password() { return this.loginForm.get('password') }
    
   submit() {
-   console.info(this.email?.value);
-   console.info(this.password?.value);
-   this.router.navigate(['/app/dashboard']);
+    this.authService
+    .login(this.email?.value, this.password?.value)
+    .subscribe(
+     _ => this.router.navigate(['/app/dashboard']),
+     _ => this.loginForm.reset()
+    );
   }
    
  }
