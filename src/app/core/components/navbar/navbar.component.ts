@@ -39,4 +39,8 @@ export class NavbarComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
+  logout() {
+    this.authService.logout();
+  }
 }

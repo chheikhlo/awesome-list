@@ -7,6 +7,7 @@ import { switchMap, tap, catchError, finalize } from 'rxjs/operators';
 import { UsersService } from './users.service';
 import { ErrorService } from 'src/app/core/services/error.service';
 import { LoaderService } from './loader.service';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -17,7 +18,12 @@ export class AuthService {
   private user: BehaviorSubject<User|null> = new BehaviorSubject<User|null>(null);
   readonly user$: Observable<User|null> = this.user.asObservable();
   
-  constructor(private http: HttpClient, private usersService: UsersService, private errorService: ErrorService, private loaderService: LoaderService) { }
+  constructor(
+    private http: HttpClient, 
+    private usersService: UsersService, 
+    private errorService: ErrorService, 
+    private loaderService: LoaderService,
+    private router: Router) { }
 
   public login(email: string, password: string): Observable<User|null> {
     
@@ -83,7 +89,8 @@ export class AuthService {
      );
   }
 
-  logout(): any{
-    return of(null);
-  }
+  logout(): void {
+    this.user.next(null);
+    this.router.navigate(['/login']);
+   }
 }
