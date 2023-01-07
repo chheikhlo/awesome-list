@@ -31,7 +31,7 @@
       </li>
       <li (click)="navigate(parametersPath)"
        [class.list-group-item-success]="isActive(parametersPath)"
-       class="list-group-item">
+       class="list-group-item" *ngIf="user?.hasRole('EMPLOYEE')">
        <i class="material-icons align-bottom mr-1">settings</i>
        Paramètres
       </li>

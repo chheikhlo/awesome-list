@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'al-sidenav',
@@ -15,9 +18,16 @@ export class SidenavComponent implements OnInit {
   profilPath: string = `${this.prefix}/profil`;
   parametersPath: string = `${this.prefix}/parameters`;
    
-  constructor(private router: Router) { }
-   
-  ngOnInit() {}
+ subscription!: Subscription;
+ user!: User|null;
+ 
+ constructor(private router: Router, private authService: AuthService) {}
+ 
+ ngOnInit() {
+  this.subscription = this.authService.user$.subscribe(user => 
+   this.user = user
+  );
+ }
    
   public navigate(page: string): void {
    this.router.navigate([page]);

@@ -8,6 +8,7 @@ import { ProfilComponent } from './profil/profil/profil.component';
 import { WorkdayComponent } from './workday/workday/workday.component';
 import { ProtectedComponent } from './protected.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { RoleGuard } from '../core/guards/role.guard';
 
 const routes: Routes = [
   {
@@ -17,7 +18,7 @@ const routes: Routes = [
   canActivateChild: [AuthGuard],
   children: [
    { path: 'dashboard', component: DashboardComponent },
-   { path: 'parameters', component: ParametersComponent },
+   { path: 'parameters', component: ParametersComponent, canActivate: [RoleGuard] },
    { path: 'planning', component: PlanningComponent },
    { path: 'profil', component: ProfilComponent },
    { path: 'workday', component: WorkdayComponent },
