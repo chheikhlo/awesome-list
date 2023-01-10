@@ -1,4 +1,5 @@
 <form [formGroup]="workdayForm" >
+    <al-workday-form-date (dateSelected)="onDateSelected($event)" [dueDate]="dueDate"></al-workday-form-date>
     <al-workday-form-date [dueDate]="dueDate" ></al-workday-form-date>
     <al-workday-form-task [workdayForm]="workdayForm" [task]="tasks"></al-workday-form-task>
     <al-workday-form-notes [notes]="notes"></al-workday-form-notes>

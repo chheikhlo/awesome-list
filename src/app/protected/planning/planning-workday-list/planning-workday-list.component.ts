@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { WorkdaysService } from 'src/app/core/services/workdays.service';
+import { User } from 'src/app/shared/models/user';
+import { Workday } from 'src/app/shared/models/workday';
 
 @Component({
   selector: 'al-planning-workday-list',
@@ -8,8 +12,27 @@ import { delay } from 'rxjs/operators';
   styles: [
   ]
 })
+
 export class PlanningWorkdayListComponent implements OnInit {
   
+  workdays!: Workday[];
+ 
+ constructor(
+  private authService: AuthService,
+  private workdayService: WorkdaysService) { }
+ 
+ ngOnInit() {
+   const user: User|null = this.authService.currentUser;
+   if(user && user.id) {
+       
+   this.workdayService.getWorkdayByUser(user.id).subscribe((workdays: Workday[]) => this.workdays = workdays);
+  }
+ }
+ 
+ onWorkdayRemoved(workday: Workday) {
+  console.info(workday.dueDate);
+ }
+}
   /*workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
   
   constructor() { }
@@ -22,6 +45,8 @@ export class PlanningWorkdayListComponent implements OnInit {
      { dueDate: 'Mercredi', doneTasks: 0, remainingTasks: 1 }
     ]).pipe(delay(1000));
    }*/
+  
+  /*
    workday: { dueDate: string, doneTasks: number, remainingTasks: number }[] = [];
   workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
    
@@ -42,5 +67,8 @@ export class PlanningWorkdayListComponent implements OnInit {
   );
   this.workday$ = of(this.workday);
  }
-   
- }
+   */
+
+ 
+ 
+

@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { EventEmitter, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { Workday } from 'src/app/shared/models/workday';
 
 @Component({
   selector: 'al-planning-workday-item',
@@ -9,10 +11,26 @@ import { EventEmitter, Output } from '@angular/core';
 })
 export class PlanningWorkdayItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() workday!: Workday; // nouveau, tout le reste a été nettoyé :)
+  @Output() workdayRemoved = new EventEmitter<Workday>();
   
-  ngOnInit(): void {}
+  constructor(private router: Router){}
+  ngOnInit() {}
+  
+  removeWorkday(workday: Workday) {
+   this.workdayRemoved.emit(workday); // dueDate devient workday !
+  }
 
+  goWorkday(workday: Workday) {
+    this.router.navigate(
+     ['app/workday'], 
+     { 
+      queryParams: { 
+       date: workday.dueDate 
+      } 
+     }
+    );
+   }
   /*
   @Input() workday: { dueDate: string, doneTasks: number, remainingTasks: number } = {
     dueDate: '',
@@ -20,6 +38,7 @@ export class PlanningWorkdayItemComponent implements OnInit {
     remainingTasks: 0
   };*/
 
+  /*
  @Input() dueDate: string = "";
  @Input() doneTasks: number | string = 0 ;
  @Input() remainingTasks: number | string = 0;
@@ -58,8 +77,11 @@ export class PlanningWorkdayItemComponent implements OnInit {
    }
   }
  }
-  
+  */
+
+
 }
+
 
 
   
