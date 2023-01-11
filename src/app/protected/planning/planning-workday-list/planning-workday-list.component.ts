@@ -30,9 +30,19 @@ export class PlanningWorkdayListComponent implements OnInit {
  }
  
  onWorkdayRemoved(workday: Workday) {
-  console.info(workday.dueDate);
+  //1.console.info(workday.dueDate);
+  /*2.faudrait raffraichir la page pour voir la suppression avec cette methode 2 là. le dernier est mieux 
+  .this.workdayService.remove(workday)
+  .subscribe(_ => {
+   console.log(`${workday.id} has been removed from Firestore !`);
+  })*/
+  this.workdayService.remove(workday)
+   .subscribe(_ => this.workdays = this.workdays.filter(el => el.id !== workday.id))
+  }
+
+
  }
-}
+
   /*workday$: Observable<{ dueDate: string; doneTasks: number; remainingTasks: number; }[]> | undefined;
   
   constructor() { }

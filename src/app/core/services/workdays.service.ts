@@ -27,16 +27,18 @@ export class WorkdaysService {
 
     const url = `${environment.firebase.firestore.baseURL}/workdays?key=${environment.firebase.apiKey}`;
     const data = this.getWorkdayForFirestore(workday); // C'est cette ligne qui est un peu plus costaud que d'habitude...
+    
+    /*A supp
     const jwt: string = localStorage.getItem('token')!;
     
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        //A supp       'Content-Type':  'application/json',
         'Authorization': `Bearer ${jwt}`
       })
-    };
+    };*/
  
-    return this.http.post(url, data, httpOptions).pipe(
+    return this.http.post(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
       tap(_ => this.toastrService.showToastr({
         category: 'success',
         message: 'Votre journée de travail a été enregistrée avec succès.'
@@ -102,16 +104,18 @@ private getTaskListForFirestore(tasks: Task[]): any {
  getWorkdayByDate(date: string, userId: string): Observable<Workday|null> {
   const url = `${environment.firebase.firestore.baseURL}:runQuery?key=${environment.firebase.apiKey}`;
   const data = this.getSructuredQuery(date, userId);
+  
+  /*A supp
   const jwt: string = localStorage.getItem('token')!;
 
   const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': `Bearer ${jwt}`
+      //A supp       'Content-Type':  'application/json', 
+     'Authorization': `Bearer ${jwt}`
     })
-  };
+  };*/
 
-  return this.http.post(url, data, httpOptions).pipe(
+  return this.http.post(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
     switchMap((data: any) => {
       const document = data[0].document;
       if(!document) { 
@@ -181,15 +185,17 @@ private getSructuredQuery(date: string, userId: string): any {
 update(workday: Workday) {
   const url = `${environment.firebase.firestore.baseURL}/workdays/${workday.id}?key=${environment.firebase.apiKey}&currentDocument.exists=true`;
   const data = this.getWorkdayForFirestore(workday);
+  
+  /*A supp
   const jwt: string = localStorage.getItem('token')!;
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    //A supp       'Content-Type':  'application/json',
     'Authorization': `Bearer ${jwt}`
    })
-  };
+  };*/
   
-  return this.http.patch(url, data, httpOptions).pipe(
+  return this.http.patch(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
    tap(_ => this.toastrService.showToastr({
     category: 'success',
     message: 'Votre journée de travail a été sauvegardée avec succès.'
@@ -202,16 +208,18 @@ update(workday: Workday) {
  getWorkdayByUser(userId: string): any {
   const url = `${environment.firebase.firestore.baseURL}:runQuery?key=${environment.firebase.apiKey}`;
   const data = this.getWorkdayByUserQuery(userId);
+  
+  /*A supp
   const jwt: string = localStorage.getItem('token')!;
   
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    //A supp       'Content-Type':  'application/json',
     'Authorization': `Bearer ${jwt}`
    })
-  };
+  };*/
   
-  return this.http.post(url, data, httpOptions).pipe(
+  return this.http.post(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
    switchMap((workdaysData: any) => {
     const workdays: Workday[] = [];
     workdaysData.forEach((data: any) => {
@@ -247,5 +255,26 @@ update(workday: Workday) {
     }]
    }
   };
+ }
+
+ remove(workday: Workday) {
+  const url = `${environment.firebase.firestore.baseURL}/workdays/${workday.id}?key=${environment.firebase.apiKey}`;
+  
+  /*const jwt: string = localStorage.getItem('token')!;
+  const httpOptions = {
+   headers: new HttpHeaders({
+    //A supp       'Content-Type':  'application/json',
+    'Authorization': `Bearer ${jwt}`
+   })
+  };*/
+  
+  return this.http.delete(url, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
+   tap(_ => this.toastrService.showToastr({
+    category: 'success',
+    message: 'Votre journée de travail a été supprimé avec succès.'
+   })),
+  // catchError(error => this.errorService.handleError(error)),
+   finalize(() => this.loaderService.setLoading(false))
+  );
  }
 }

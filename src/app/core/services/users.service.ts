@@ -13,19 +13,21 @@ export class UsersService {
  
  constructor(private http: HttpClient) { }
  
- get(userId: string, jwt: string): Observable<User|null> {
+ get(userId: string | ''/*2nd param jwt A supp, jwt: string*/): Observable<User|null> {
   const url =
    `${environment.firebase.firestore.baseURL}:runQuery?key=
     ${environment.firebase.apiKey}`;
   const data = this.getStructuredQuery(userId);
+  
+  /*A supp
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    //A supp       'Content-Type':  'application/json',
     'Authorization': `Bearer ${jwt}`
    })
-  };
+  };*/
   
-  return this.http.post(url, data, httpOptions).pipe(
+  return this.http.post(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
    switchMap((data: any) => {
     return of(this.getUserFromFirestore(data[0].document.fields));
    })
@@ -50,20 +52,22 @@ export class UsersService {
   };
  }
 
- save(user: User, jwt: string): Observable<User|null> {
+ save(user: User /*2nd param jwt A supp, jwt: string*/): Observable<User|null> {
   const url = 
    `${environment.firebase.firestore.baseURL}/users?key=
     ${environment.firebase.apiKey}&documentId=${user.id}`;
  
   const data = this.getDataForFirestore(user);
+  
+  /*A supp
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+    //A supp       'Content-Type':  'application/json',
     'Authorization': `Bearer ${jwt}`
    })
-  };
+  };*/
  
-  return this.http.post(url, data, httpOptions).pipe(
+  return this.http.post(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
    switchMap((data: any) => {
     return of(this.getUserFromFirestore(data.fields));
    })
@@ -73,14 +77,16 @@ export class UsersService {
  update(user: User): Observable<User|null> {
   const url = `${environment.firebase.firestore.baseURL}/users/${user.id}?key=${environment.firebase.apiKey}&currentDocument.exists=true`;
   const data = this.getDataForFirestore(user);
+  
+  /*A supp
   const httpOptions = {
    headers: new HttpHeaders({
-    'Content-Type':  'application/json',
+     //A supp       'Content-Type':  'application/json',
     'Authorization': `Bearer ${localStorage.getItem('token')}`
    })
-  };
+  };*/
   
-  return this.http.patch(url, data, httpOptions).pipe(
+  return this.http.patch(url, data, /*httpOptions à rempl par {} car existe plus*/{}).pipe(
    switchMap((data: any) => {
     return of(this.getUserFromFirestore(data.fields));
    })

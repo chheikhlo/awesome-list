@@ -24,19 +24,24 @@ export class WorkdayFormComponent {
     private route: ActivatedRoute) { }
   
   ngOnInit() {
-    
-    this.workdayId = '';
-   this.workdayForm = this.fb.group({
-    dueDate: ['', [
-      Validators.required
-     ]],
-     tasks: this.fb.array([], [
-      Validators.required,
-      Validators.maxLength(6)
-     ]),
-     notes: ['', [
-      Validators.maxLength(1000)
-     ]]
+    this.route.queryParams.subscribe(params => {
+      this.workdayId = '';
+      this.workdayForm = this.fb.group({
+      dueDate: ['', [
+        Validators.required
+        ]],
+        tasks: this.fb.array([], [
+        Validators.required,
+        Validators.maxLength(6)
+        ]),
+        notes: ['', [
+        Validators.maxLength(1000)
+        ]]
+      });
+      if(params.date) {
+        const date: Date = new Date(+params.date * 1000); // On multiplie par 1000 le timestamp reçu pour l'adapter au format des timestamp de JavaScript.
+        this.dueDate.setValue(date);
+      }
     });
   }
   

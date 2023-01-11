@@ -55,17 +55,19 @@ export class AuthService {
      password: password,
      returnSecureToken: true
     };
+    
+    /* A Supp 
     const httpOptions = {
      headers: new HttpHeaders({'Content-Type':  'application/json'})
-    };
+    };*/
     
-    return this.http.post<User>(url, data, httpOptions).pipe(
+    return this.http.post<User>(url, data, /*httpOptions est remplacer par {} puisqur HttpOptions est supprimé*/{}).pipe(
       switchMap((data: any) => {
        const userId: string = data.localId;
        const jwt: string = data.idToken;
        
        this.saveAuthData(userId, jwt);
-       return this.usersService.get(userId, jwt);
+       return this.usersService.get(userId /*2nd param jwt A supp, jwt: string*/);
       }),
       tap(user => this.user.next(user)),
       tap(_ => this.logoutTimer(3600)), // On déclenche la minuterie !
@@ -103,7 +105,7 @@ export class AuthService {
        });
     
        this.saveAuthData(data.localId, jwt);
-       return this.usersService.save(user, jwt);
+       return this.usersService.save(user /*2nd param jwt A supp, jwt: string*/);
       }),
       tap(user => this.user.next(user)),
       tap(_ => this.logoutTimer(3600)), // On déclenche la minuterie !

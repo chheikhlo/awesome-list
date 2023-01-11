@@ -1,5 +1,5 @@
 export class User {
-    readonly id: string|null; // id de l’utilisateur qui peut être une chaîne ou "null".
+    readonly id: string| ''; // id de l’utilisateur qui peut être une chaîne ou "null".
     email: string; // email de l’utilisateur
     name: string; // nom de l’utilisateur
     avatar: string; // url vers la photo de profil de l’utilisateur
@@ -12,7 +12,7 @@ export class User {
      avatar?: string,
      pomodoroDuration?: number,
     } = {}) {
-     this.id = options.id || null;
+     this.id = options.id || '';
      this.email = options.email || '';
      this.name= options.name || '';
      this.avatar = options.avatar || '';
