@@ -1,1 +1,43 @@
-<h1>Dashboards</h1>
+<h1>
+    Tableau de bord 
+    <small class="text-muted"> - {{ currentDate }}</small>
+</h1>
+
+<!-- On vérifie si l'utilisateur a prévu des tâches ou non : -->
+<al-dashboard-workday
+  *ngIf="(workday$ | async) as workday; else emptyWorkday"
+  [workday]="workday">
+</al-dashboard-workday>
+ 
+<ng-template #emptyWorkday>
+  <p class="text-center lead m-5">
+    {{ currentUser?.name }}, pas de travail pour aujourd'hui ! <img draggable="false" role="img" class="emoji" alt="🌴" src="https://s.w.org/images/core/emoji/14.0.0/svg/1f334.svg">
+  </p>
+</ng-template>
+
+<al-dashboard-pomodoro-progress></al-dashboard-pomodoro-progress>
+
+!-- J'ai ajouté un premier bouton de commande... -->
+<div class="text-center my-3">
+  <button class="btn btn-success btn-sm">
+    Démarrer le Pomodoro
+  </button>
+</div>
+ 
+<!-- ... ainsi que les boutons des commandes suivants: -->
+<div class="text-center my-3">
+  <button class="btn btn-sm mr-1">
+    Annuler le Pomodoro
+  </button>
+  <button class="btn btn-success btn-sm">
+    Terminé le Pomodoro
+  </button>
+</div>
+ 
+<!-- Et enfin on affiche la liste des tâches ! -->
+<div *ngIf="(workday$ | async) as workday">
+  <al-dashboard-task-item
+    *ngFor="let task of workday.tasks"
+    [task]="task">
+  </al-dashboard-task-item>
+</div>
