@@ -4,7 +4,7 @@
 Proposer une application de productivité entièrement repensée, afin d’aider les internautes à être plus efficace sur leur projet personnel, leurs études, ou dans leur travail. En effet, tout le monde a de nombreuses tâches à réaliser chaque jour, et nombreux sont ceux qui terminent leur journée avec le sentiment d’un manque d’accomplissement : « J’aurais dû terminer ça plus rapidement », « Demain je vais devoir me lever tôt, car il me reste ceci ou cela à terminer », etc. C’est pour lutter contre ce manque de satisfaction que ce projet est amené à voir le jour.
 
 ## Les règles de l’application :
-Voici donc les sept règles retenues par Google pour son application de productivité :
+Voici donc les sept règles retenues pour son application de productivité :
 1.	Prévoir entre une à six tâches par jour : Trop de tâches implique trop de choix, ce qui paralyse le passage à l’action.
 2.	Découper les tâches en Pomodoros : Minuterie pour déterminer un temps fixe dédier à la réalisation de notre tache.
 3.	Prioriser les tâches par ordre d’importance : Si je n’avais qu’une tâche à accomplir aujourd’hui pour être satisfait de ma journée, ce serait laquelle ? Ensuite viennent les tâches de seconde importance, et enfin les autres tâches de moindre importance.
